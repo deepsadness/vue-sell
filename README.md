@@ -1,5 +1,5 @@
 # vue-sell
-
+vue课程的学习demo.
 > A Vue.js project
 
 ## Build Setup
