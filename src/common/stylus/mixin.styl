@@ -10,6 +10,11 @@ border-1px($color)
     border-top: 1px solid $color
     content ' '
 
+border-none()
+  &:after
+    display none
+
+
 //获取图片的地址
 bg-img($url)
   background-image: url($url + "@2x.png")

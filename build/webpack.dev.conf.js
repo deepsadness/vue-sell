@@ -19,13 +19,26 @@ const ratings = data.ratings
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+//获取本地IP地址
+// let os = require('os');
+// let IPv4,hostName;
+// hostName=os.hostname();
+// console.log('----------local host: '+hostName);
+// console.log('----------local networkInterfaces: '+JSON.stringify(os.networkInterfaces()));
+//
+// for(let i=0;i<os.networkInterfaces().eth0.length;i++){
+//   if(os.networkInterfaces().eth0[i].family=='IPv4'){
+//     IPv4=os.networkInterfaces().eth0[i].address;
+//   }
+// }
+// console.log('----------local IP: '+IPv4);
+
 
 const appMock = express()
 
 //创建router
 const apiRouter = express.Router();
 appMock.use('/api', apiRouter)
-
 
 
 // appMock.listen((PORT || config.dev.port) + 1);
@@ -123,7 +136,7 @@ module.exports = new Promise((resolve, reject) => {
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
+          messages: [`Your application is running here: http://localhost:${port}`],
         },
         onErrors: config.dev.notifyOnErrors
           ? utils.createNotifierCallback()

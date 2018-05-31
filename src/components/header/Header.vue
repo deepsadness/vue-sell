@@ -11,7 +11,8 @@
         </div>
         <div class="description">{{seller.description}} / {{seller.deliveryTime}}分钟送达</div>
         <div v-if="seller.supports" class="support">
-          <span class="icon" :class="classMap[seller.supports[0].type]"></span>
+          <!--<span class="icon" :class="classMap[seller.supports[0].type]"></span>-->
+          <left-icon :size='1' :index="seller.supports[0].type"></left-icon>
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
@@ -31,7 +32,7 @@
           <div class="detail-main">
             <p class="name">{{seller.name}}</p>
             <div class="star-wrapper">
-              <star size="48" :score="seller.score"></star>
+              <star :size="48" :score="seller.score"></star>
             </div>
             <div class="title">
               <i class="line"></i>
@@ -40,7 +41,8 @@
             </div>
             <div v-if="seller.supports" class="support">
               <div class="support-item" v-for="(item,index) in seller.supports" :key="index">
-                <span class="icon" :class="classMap[item.type]"></span>
+                <left-icon :size='2' :index="item.type"></left-icon>
+                <!--<span class="icon" :class="classMap[item.type]"></span>-->
                 <span class="text">{{item.description}}</span>
               </div>
             </div>
@@ -62,6 +64,7 @@
 
 <script>
   import star from '@/components/star/star'
+  import leftIcon from '@/components/leftIcon/leftIcon'
 
   export default {
     name: 'header',
@@ -71,7 +74,7 @@
       }
     },
     created() {
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+      // this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     },
     methods: {
       showDetail() {
@@ -87,7 +90,8 @@
       }
     },
     components: {
-      star
+      star,
+      'left-icon': leftIcon
     }
   }
 </script>
@@ -133,6 +137,7 @@
         .support
           font-size 10px
           line-height 12px
+          /*
           .icon
             margin 0 2px 4px 0
             vertical-align top
@@ -159,6 +164,7 @@
               bg-img('special_1')
               background-size 12px 12px;
               border-repeat no-repeat
+              */
       .support-count
         position absolute
         right: 12px
@@ -253,6 +259,7 @@
               font-size 0
               &:last-child
                 margin-bottom 0
+               /*
               .icon
                 margin-right 6px
                 vertical-align top
@@ -271,6 +278,7 @@
                   bg-img('invoice_2')
                 &.special
                   bg-img('special_2')
+                  */
               .text
                 font-size 12px
                 font-weight 200
