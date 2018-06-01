@@ -28,14 +28,16 @@
                   <span class="now">¥{{food.price}}</span>
                   <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
-              <cartcontrol></cartcontrol>
             </div>
           </li>
         </ul>
       </div>
     </div>
-    <shopcart :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
+    <shopcart :selectedFoods="selectedFoods" :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
   </div>
 </template>
 
@@ -94,6 +96,17 @@
           }
         }
         return 0
+      },
+      selectedFoods() {
+        let result = []
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              result.push(food)
+            }
+          })
+        })
+        return result
       }
     },
     mounted() {
@@ -109,7 +122,8 @@
 
         //  需要记录scrollY.
         this.foodScroll = new BScroll(this.$refs.food_scroll, {
-          probeType: 3
+          probeType: 3,
+          click: true
         })
 
         //  指定probeType之后，监听滚动事件
@@ -237,11 +251,17 @@
             font-size 14px
             line-height 24px
             font-weight 700
+            height 24px
             .now
               color #f01414
               margin-right 8px
             .old
               font-size 10px
               text-decoration line-through
+          .cartcontrol-wrapper
+            vertical-align top
+            position absolute
+            right 0
+            bottom 18px
 
 </style>
