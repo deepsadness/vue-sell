@@ -10,7 +10,7 @@
             <span class="count">{{totalCount}}</span>
           </div>
         </div>
-        <div class="price">¥{{totalPrice}}</div>
+        <div class="price" :class="{'highlight':totalPrice > 0}">¥{{totalPrice}}</div>
         <div class="desc">另需配送费¥{{deliveryPrice}}元</div>
       </div>
       <div class="content-right" :class="{'enough':totalPrice >= minPrice}">
@@ -29,14 +29,7 @@
         type: Array,
         // 这里默认的参数需要变成一个方法
         default() {
-          return [
-            {
-              'price': 10,
-            },
-            {
-              'price': 10,
-              }
-            ]
+          return []
         }
       },
       deliveryPrice: {
@@ -65,13 +58,13 @@
       },
       resultPrice() {
         let totalPrice = this.totalPrice
-        if(totalPrice === 0){
-          return '¥'+this.minPrice+'元起送'
-        }else if(totalPrice >= this.minPrice ){
+        if (totalPrice === 0) {
+          return '¥' + this.minPrice + '元起送'
+        } else if (totalPrice >= this.minPrice) {
           return '去结算'
-        }else {
+        } else {
           let diff = this.minPrice - totalPrice
-          return '还差¥'+diff+'元起送'
+          return '还差¥' + diff + '元起送'
         }
       }
     }
@@ -122,20 +115,20 @@
               .icon-shopping_cart
                 color: #fff
           .count-wrapper
-            position relative
-            top -50px
-            left 24px
-            width 30px
-            height 18px
+            position absolute
+            top 0
+            right 0
+            width 24px
+            height 16px
             z-index 60
-            border-radius 12px
+            border-radius 16px
             box-shadow 0 4px 8px 0 rgba(0,0,0,0.4)
             background rgb(240, 20, 20)
             box-sizing border-box
             text-align center
             .count
               font-size 9px
-              line-height 18px
+              line-height 16px
               color #fff
         .price
           display inline-block
@@ -147,6 +140,8 @@
           margin-top 12px
           padding-right 12px
           border-right 1px solid rgba(255,255,255,0.1)
+          &.highlight
+            color #fff
         .desc
           display inline-block
           vertical-align top
@@ -170,7 +165,6 @@
         &.enough
           background: #1b9456
           .result-price
-            color #fff  
-            font-size 14px  
-          
+            color #fff
+            font-size 14px
 </style>
