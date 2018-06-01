@@ -14,7 +14,7 @@
     </div>
     <!--<div @click="request">点击请求</div>-->
     <keep-alive>
-      <router-view/>
+      <router-view :seller="seller"/>
     </keep-alive>
   </div>
 </template>
