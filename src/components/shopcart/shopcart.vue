@@ -32,11 +32,9 @@
           return [
             {
               'price': 10,
-              'count': 0
             },
             {
               'price': 10,
-              'count': 0
               }
             ]
         }
@@ -54,7 +52,7 @@
       totalPrice() {
         let totalPrice = 0
         this.selectedFoods.forEach(it => {
-          totalPrice += it.price * it.count
+          totalPrice += it.price * (it.count || 0)
         })
         return totalPrice
       },
