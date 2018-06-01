@@ -29,6 +29,7 @@
                   <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                 </div>
               </div>
+              <cartcontrol></cartcontrol>
             </div>
           </li>
         </ul>
@@ -41,6 +42,7 @@
 <script>
   import leftIcon from '@/components/leftIcon/leftIcon'
   import shopcart from '@/components/shopcart/shopcart'
+  import cartcontrol from '@/components/cartcontrol/cartcontrol'
 
   //  引入better-scroll
   import BScroll from 'better-scroll'
@@ -53,7 +55,8 @@
     },
     components: {
       'left-icon': leftIcon,
-      shopcart
+      shopcart,
+      cartcontrol
     },
     data() {
       return {
