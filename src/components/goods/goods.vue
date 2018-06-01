@@ -29,7 +29,7 @@
                   <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartcontrol :food="food" v-on:cart="cartAdd"></cartcontrol>
                 </div>
               </div>
             </div>
@@ -37,7 +37,7 @@
         </ul>
       </div>
     </div>
-    <shopcart :selectedFoods="selectedFoods" :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
+    <shopcart ref="shopcart_ref" :selectedFoods="selectedFoods" :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
   </div>
 </template>
 
@@ -83,6 +83,10 @@
         .catch(e => {
           console.log(e)
         })
+      // this.$on('cart.add', this.cartAdd)
+    },
+    beforeDestroy() {
+      //  this.$off('cart.add', this.cartAdd)
     },
     computed: {
       currentIndex() {
@@ -119,7 +123,6 @@
         this.menuScroll = new BScroll(this.$refs.menu_scroll, {
           click: true
         })
-
         //  需要记录scrollY.
         this.foodScroll = new BScroll(this.$refs.food_scroll, {
           probeType: 3,
@@ -160,7 +163,6 @@
         if (!event._constructed) {
           return
         }
-        console.log(index)
         // 因为我们的滚动需要滚动到事件，所以要根据这里的index，去找element
         // let foodList = this.$refs.food_scroll.getElementsByClassName('food-list-hook')
         //  console.log(event)
@@ -168,6 +170,12 @@
         // let target = foodList[index]
         let scrollHeight = this.listHeight[index]
         this.foodScroll.scrollTo(0, -scrollHeight, 300)
+      },
+      cartAdd(el) {
+        // 直接传递给dom对象，让他来调用自己的方法
+        this.$nextTick(() => {
+          this.$refs.shopcart_ref.drop(el)
+        })
       }
     }
   }

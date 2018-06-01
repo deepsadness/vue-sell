@@ -18,6 +18,13 @@
         <span class="result-price">{{resultPrice}}</span>
       </div>
     </div>
+    <div class="ball-container">
+      <transition-group name="drop" v-on:before-enter="dropBeforeEnter" v-on:enter="dropEnter" v-on:after-enter="dropAfterEnter">
+        <div v-for="(ball,index) in balls" v-show="ball.show" :key="index" class="ball">
+          <div class="inner inner-hook"></div>
+        </div>
+      </transition-group>
+    </div>
   </div>
 </template>
 
@@ -39,6 +46,26 @@
       minPrice: {
         type: Number,
         default: 0
+      }
+    },
+    data() {
+      return {
+        // 同时出现的动画数量
+        balls: [
+          {
+          'show': false
+          },
+          {
+          'show': false
+          },
+          {
+          'show': false
+          },
+          {
+          'show': false
+          }
+        ],
+        dropBalls: []
       }
     },
     computed: {
@@ -65,6 +92,56 @@
         } else {
           let diff = this.minPrice - totalPrice
           return '还差¥' + diff + '元起送'
+        }
+      }
+    },
+    methods: {
+      drop(el) {
+        console.log(el)
+        for (let index = 0; index < this.balls.length; index++) {
+          const ball = this.balls[index]
+          if (!ball.show) {
+            ball.show = true
+            ball.el = el
+            this.dropBalls.push(ball)
+            return
+          }
+        }
+      },
+      dropBeforeEnter(el) {
+        for (let i = 0; i < this.dropBalls.length; i++) {
+          const ball = this.dropBalls[i]
+          if (ball.show) {
+            let rect = ball.el.getBoundingClientRect()
+            let x = rect.left - 32
+            let y = -(window.innerHeight - rect.top -30)
+            el.style.display = ''
+            el.style.webKitTransform = `translate3d(0,${y}px,0)`
+            el.style.transform = `translate3d(0,${y}px,0)`
+            let inner = el.getElementsByClassName('inner-hook')[0]
+            inner.style.webKitTransform = `translate3d(${x}px,0,0)`
+            inner.style.transform = `translate3d(${x}px,0,0)`
+          }
+        }
+      },
+      dropEnter(el) {
+        // 强制刷新
+        /* eslint-disable no-unused-vars */
+        let ref = el.offsetHeight
+        this.$nextTick(() => {
+          // 重置变量
+          el.style.webKitTransform = 'translate3d(0,0,0)'
+          el.style.transform = 'translate3d(0,0,0)'
+          let inner = el.getElementsByClassName('inner-hook')[0]
+          inner.style.webKitTransform = 'translate3d(0,0,0)'
+          inner.style.transform = 'translate3d(0,0,0)'
+        })
+      },
+      dropAfterEnter(el) {
+        let ball = this.dropBalls.shift()
+        if (ball) {
+          ball.show = false
+          el.style.display = 'none'
         }
       }
     }
@@ -167,4 +244,19 @@
           .result-price
             color #fff
             font-size 14px
+    .ball-container
+      .ball
+        position fixed
+        left 32px
+        bottom 22px
+        z-index 200
+        .inner
+          width 16px
+          height 16px
+          border-radius 50%
+          background rgb(0,160,220)
+        &.drop-enter-active
+          transition all .4s cubic-bezier(.57,-0.31,.8,.46)
+          .inner
+            transition all .4s linear
 </style>

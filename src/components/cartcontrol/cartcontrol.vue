@@ -30,6 +30,8 @@ export default {
           } else {
             this.food.count++
           }
+          // 将这个事件发送出去
+          this.$emit('cart', event.target)
         },
         deleteCart(event) {
           if (!event._constructed) {
@@ -64,9 +66,9 @@ export default {
         display inline-block
         font-size 24px
       &.move-enter-active, &.move-leave-active
-        transition : all 0.3s linear
+        transition : all 0.2s linear
         .inner
-          transition : all 0.3s linear
+          transition : all 0.2s linear
         // opacity 1
         // transform translate3d(0,0,0)
       &.move-enter, &.move-leave-to
