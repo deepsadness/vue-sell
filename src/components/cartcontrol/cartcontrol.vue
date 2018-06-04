@@ -1,14 +1,14 @@
 <template>
     <div class="cartcontrol">
       <transition name="move">
-          <div class="control-decrease" v-show="food.count > 0" @click="deleteCart($event)" transition="move">
+          <div class="control-decrease" v-show="food.count > 0" @click.stop.prevent="deleteCart($event)" transition="move">
             <!-- 由内部的图形来负责旋转 -->
             <div class="inner icon-remove_circle_outline"></div>
           </div>
       </transition>
       <!-- <div class="num" >{{food.count === 0 ? '': food.count}}</div> -->
       <div class="num" v-show="food.count" >{{food.count}}</div>
-      <div class="control-add icon-add_circle" @click="addCart($event)"></div>
+      <div class="control-add icon-add_circle" @click.stop.prevent="addCart($event)"></div>
     </div>
 </template>
 

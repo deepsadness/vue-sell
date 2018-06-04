@@ -14,7 +14,8 @@
           <!--添加一个hook标记，来查询位置-->
           <li v-for="(item,index) in goods" :key="index" class="food-item food-list-hook">
             <div class="food-name">{{item.name}}</div>
-            <div class="food-content border-1px" v-for="(food,foodIndex) in item.foods" :key="foodIndex">
+            <div class="food-content border-1px" v-for="(food,foodIndex) in item.foods" :key="foodIndex"
+                 @click="selectFood(food,$event)">
               <div class="food-img">
                 <img :src="food.icon" width="57" height="57">
               </div>
@@ -29,7 +30,7 @@
                   <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food" v-on:cart="cartAdd"></cartcontrol>
+                  <cartcontrol :food="food" @cart="cartAdd"></cartcontrol>
                 </div>
               </div>
             </div>
@@ -37,7 +38,9 @@
         </ul>
       </div>
     </div>
-    <shopcart ref="shopcart_ref" :selectedFoods="selectedFoods" :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
+    <shopcart ref="shopcart_ref" :selectedFoods="selectedFoods" :minPrice="seller.minPrice"
+              :deliveryPrice="seller.deliveryPrice"></shopcart>
+    <food :food="selectedFood" ref="food_detail" @cart="cartAdd"></food>
   </div>
 </template>
 
@@ -45,6 +48,7 @@
   import leftIcon from '@/components/leftIcon/leftIcon'
   import shopcart from '@/components/shopcart/shopcart'
   import cartcontrol from '@/components/cartcontrol/cartcontrol'
+  import food from '@/components/food/food'
 
   //  引入better-scroll
   import BScroll from 'better-scroll'
@@ -58,7 +62,8 @@
     components: {
       'left-icon': leftIcon,
       shopcart,
-      cartcontrol
+      cartcontrol,
+      food
     },
     data() {
       return {
@@ -66,7 +71,8 @@
         listHeight: [],
         // 记录scrollY
         scrollY: 0,
-        clientType: 'mobile'
+        clientType: 'mobile',
+        selectedFood: {}
       }
     },
     created() {
@@ -176,6 +182,13 @@
         this.$nextTick(() => {
           this.$refs.shopcart_ref.drop(el)
         })
+      },
+      selectFood(food, event) {
+        if (!event._constructed) {
+          return
+        }
+        this.selectedFood = food
+        this.$refs.food_detail.show()
       }
     }
   }

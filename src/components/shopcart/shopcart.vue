@@ -130,7 +130,8 @@
       },
       listShow() {
         if (!this.totalCount) {
-          // this.fold = true
+          // eslint-disable-next-line
+          this.fold = true
           return false
         }
         if (!this.fold) {
@@ -141,7 +142,7 @@
     },
     methods: {
       drop(el) {
-        console.log(el)
+        console.log('drop index' + el)
         for (let index = 0; index < this.balls.length; index++) {
           const ball = this.balls[index]
           if (!ball.show) {
@@ -156,6 +157,7 @@
         for (let i = 0; i < this.dropBalls.length; i++) {
           const ball = this.dropBalls[i]
           if (ball.show) {
+            console.log('dropBeforeEnter index' + i, ball.el)
             let rect = ball.el.getBoundingClientRect()
             let x = rect.left - 32
             let y = -(window.innerHeight - rect.top - 30)
@@ -337,9 +339,9 @@
           border-radius 50%
           background rgb(0, 160, 220)
         &.drop-enter-active
-          transition all .4s cubic-bezier(.57, -0.31, .8, .46)
+          transition all .2s cubic-bezier(.57, -0.31, .8, .46)
           .inner
-            transition all .4s linear
+            transition all .2s linear
     .shopcart-list
       font-size 0
       position absolute
