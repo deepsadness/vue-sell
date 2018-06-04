@@ -22,6 +22,7 @@ export default {
     },
     methods: {
         addCart(event) {
+          // 这里的事件必须是通过betterScroll派发的
           if (!event._constructed) {
             return
           }
