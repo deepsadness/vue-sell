@@ -28,6 +28,10 @@
             </div>
           </li>
         </ul>
+        <div class="favorite" @click="favoriteClick" :class="{'active':favorite}">
+          <span class="icon-favorite"></span>
+          <span class="text">{{favorite?'已收藏':'收藏'}}</span>
+        </div>
       </div>
       <split></split>
       <div class="bulletin">
@@ -72,10 +76,19 @@
   import leftIcon from '@/components/leftIcon/leftIcon'
   import BScroll from 'better-scroll'
 
+  import {saveToLocalStore, readFromLocalStore} from '../../common/js/store'
+
   export default {
     props: {
       seller: {
         type: Object
+      }
+    },
+    data() {
+      return {
+        favorite: (() => {
+          return readFromLocalStore(this.seller.id, 'favorite', false)
+        })()
       }
     },
     components: {
@@ -123,6 +136,10 @@
           }
 
         })
+      },
+      favoriteClick() {
+        this.favorite = !this.favorite
+        saveToLocalStore(this.seller.id, 'favorite', this.favorite)
       }
     }
   }
@@ -182,8 +199,29 @@
             color: rgb(7, 17, 27)
             .stress
               font-size 24px
-    /*.unit*/
-    /*font-size 10px*/
+      .favorite
+        position absolute
+        top 18px
+        right: 18px
+        width: 50px
+        font-size 0
+        text-align center
+        color rgb(147, 153, 159)
+        &.active
+          .icon-favorite
+            color: rgb(240, 20, 20)
+          .text
+            color rgb(77, 85, 93)
+        .icon-favorite
+          display block
+          vertical-align top
+          font-size 24px
+          line-height: 24px
+        .text
+          margin-top 4px
+          display block
+          font-size 10px
+          line-height: 10px
     .bulletin
       padding 18px 18px 0 18px
       .title
