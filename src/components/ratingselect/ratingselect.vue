@@ -70,10 +70,10 @@
           return
         }
         this.$emit('select', type)
-        console.log(type)
+        // console.log(type)
       },
       toggleContent(event) {
-        console.log(this.onlyContent)
+        // console.log(this.onlyContent)
         if (!event._constructed) {
           return
         }

@@ -142,7 +142,7 @@
     },
     methods: {
       drop(el) {
-        console.log('drop index' + el)
+        // console.log('drop index' + el)
         for (let index = 0; index < this.balls.length; index++) {
           const ball = this.balls[index]
           if (!ball.show) {
@@ -157,7 +157,7 @@
         for (let i = 0; i < this.dropBalls.length; i++) {
           const ball = this.dropBalls[i]
           if (ball.show) {
-            console.log('dropBeforeEnter index' + i, ball.el)
+            // console.log('dropBeforeEnter index' + i, ball.el)
             let rect = ball.el.getBoundingClientRect()
             let x = rect.left - 32
             let y = -(window.innerHeight - rect.top - 30)
@@ -191,7 +191,7 @@
         }
       },
       emptySelected() {
-        console.log('clear')
+        // console.log('clear')
         this.selectedFoods.forEach((food) => {
           food.count = 0
         })

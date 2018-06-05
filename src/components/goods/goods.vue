@@ -124,7 +124,7 @@
     },
     methods: {
       _initScroll() {
-        console.log('_initScroll')
+        // console.log('_initScroll')
         //  need pass dom object to init scroll
         this.menuScroll = new BScroll(this.$refs.menu_scroll, {
           click: true

@@ -117,7 +117,7 @@
         margin-left 16px
         font-size 14px
         .title
-          margin 2px 6px 8px 0px
+          margin 2px 6px 8px 0
           .brand
             vertical-align top
             display inline-block

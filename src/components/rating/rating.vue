@@ -103,7 +103,7 @@
     },
     methods: {
       changeRatingType(type) {
-        console.log('changeRatingType')
+        // console.log('changeRatingType')
         if (this.selectedType === type) {
           return
         }

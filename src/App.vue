@@ -9,10 +9,9 @@
         <router-link to="/rating">评论</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/seller">卖家</router-link>
+        <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <!--<div @click="request">点击请求</div>-->
     <keep-alive>
       <router-view :seller="seller"/>
     </keep-alive>
@@ -21,12 +20,19 @@
 
 <script>
   import Header from '@/components/header/Header'
+  import {urlParse} from '@/common/js/util'
+
   // import axios from 'axios'
   export default {
     name: 'App',
     data() {
       return {
-        seller: {}
+        seller: {
+          id: (() => {
+            let param = urlParse()
+            return param.id
+          })()
+        }
       }
     },
     components: {
@@ -34,9 +40,11 @@
     },
     methods: {
       request: function () {
-        this.$http.get('/api/seller')
+        this.$http.get('/api/seller?id=1234')
           .then(res => {
-            this.seller = res.data.data
+            console.log(this.seller.id)
+            this.seller = Object.assign({}, this.seller, res.data.data)
+            console.log(this.seller.id)
           })
           .catch((error) => {
             console.log(error)
@@ -44,10 +52,9 @@
       }
     },
     created: function () {
-      this.$http.get('/api/seller')
+      this.$http.get('/api/seller?id=1234')
         .then(res => {
-          this.seller = res.data.data
-          console.log(res.data.data)
+          this.seller = Object.assign({}, this.seller, res.data.data)
         })
         .catch((error) => {
           console.log(error)

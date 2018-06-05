@@ -122,11 +122,11 @@
         Vue.set(this.food, 'count', 1)
       },
       cartAdd() {
-        console.log(this.food.count, event.target)
+        // console.log(this.food.count, event.target)
         this.$emit('cart', event.target)
       },
       changeRatingType(type) {
-        console.log('changeRatingType')
+        // console.log('changeRatingType')
         if (this.selectedType === type) {
           return
         }

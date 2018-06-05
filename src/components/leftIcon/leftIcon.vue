@@ -80,4 +80,20 @@
       bg-img('invoice_3')
     &.special
       bg-img('special_3')
+  &.icon-4
+    margin-right 6px
+    width 16px
+    height: 16px
+    border-repeat no-repeat
+    background-size 16px 16px
+    &.decrease
+      bg-img('decrease_4')
+    &.discount
+      bg-img('discount_4')
+    &.guarantee
+      bg-img('guarantee_4')
+    &.invoice
+      bg-img('invoice_4')
+    &.special
+      bg-img('special_4')
 </style>
